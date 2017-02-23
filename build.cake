@@ -7,7 +7,7 @@
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var artifacts = MakeAbsolute(Directory(Argument("artifactPath", "./artifacts")));
-var buildFolder = MakeAbsolute(Directory(Argument("buildFolder", "./build"))).ToString();
+var buildFolder = MakeAbsolute(Directory(Argument("buildFolder", "./Frozenskys.ConsulService/bin/Release"))).ToString();
 
 ///////////////////////////////////////////////////////////////////////////////
 // USER TASKS
