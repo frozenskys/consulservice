@@ -49,7 +49,7 @@ Task("Package")
 	{
 		var nuGetPackSettings   = new NuGetPackSettings {
                                      Id                      = "Frozenskys.ConsulService",
-                                     Version                 = "0.1.1.0",
+                                     Version                 = "0.1.2.0",
                                      Title                   = "Consul Helper for ASP.NET Core Applications",
                                      Authors                 = new[] {"Richard Cooper"},
                                      Description             = "Contains helpers to make using consul with ASP.NET core applications easier",
