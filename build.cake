@@ -60,7 +60,7 @@ Task("Package")
                                      Symbols                 = false,
                                      NoPackageAnalysis       = true,
 									 Dependencies            = new [] {
-                                                                          new NuSpecDependency {Id="Consul", Version="0.7.2.1", TargetFramework="net452"},
+                                                                          new NuSpecDependency {Id="Consul", Version="0.7.2.1"},
                                                                        },
 									 Files                   = new [] {
                                                                           new NuSpecContent {Source = "**/Frozenskys.ConsulService.dll", Target = "lib"},
