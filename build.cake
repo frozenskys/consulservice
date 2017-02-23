@@ -7,7 +7,7 @@
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var artifacts = MakeAbsolute(Directory(Argument("artifactPath", "./artifacts")));
-var buildFolder = MakeAbsolute(Directory(Argument("buildFolder", "./Frozenskys.ConsulService/bin/Release"))).ToString();
+var buildFolder = MakeAbsolute(Directory(Argument("buildFolder", "./Frozenskys.AspNetCore.Consul/bin/Release"))).ToString();
 
 ///////////////////////////////////////////////////////////////////////////////
 // USER TASKS
@@ -30,14 +30,14 @@ Task("Default")
 Task("Restore")
 	.IsDependentOn("Clean").Does(() =>
 	{
-		DotNetCoreRestore("./Frozenskys.ConsulService.sln");
+		DotNetCoreRestore("./Frozenskys.AspNetCore.Consul.sln");
 	});
 
 Task("Build")
 	.IsDependentOn("Restore")
 	.Does(() =>
 	{
-		DotNetCoreBuild("./Frozenskys.ConsulService/Frozenskys.ConsulService.csproj", new DotNetCoreBuildSettings
+		DotNetCoreBuild("./Frozenskys.AspNetCore.Consul/Frozenskys.AspNetCore.Consul.csproj", new DotNetCoreBuildSettings
 			{				
 				Configuration = "Release"				
 			});
@@ -48,7 +48,7 @@ Task("Package")
 	.Does(() =>
 	{
 		var nuGetPackSettings   = new NuGetPackSettings {
-                                     Id                      = "Frozenskys.ConsulService",
+                                     Id                      = "Frozenskys.AspNetCore.Consul",
                                      Version                 = "0.1.2.0",
                                      Title                   = "Consul Helper for ASP.NET Core Applications",
                                      Authors                 = new[] {"Richard Cooper"},
@@ -63,7 +63,7 @@ Task("Package")
                                                                           new NuSpecDependency {Id="Consul", Version="0.7.2.1"},
                                                                        },
 									 Files                   = new [] {
-                                                                          new NuSpecContent {Source = "**/Frozenskys.ConsulService.dll", Target = "lib"},
+                                                                          new NuSpecContent {Source = "**/Frozenskys.AspNetCore.Consul.dll", Target = "lib"},
                                                                        },
                                      BasePath                = buildFolder,
                                      OutputDirectory         = artifacts

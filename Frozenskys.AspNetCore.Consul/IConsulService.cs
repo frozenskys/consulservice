@@ -1,4 +1,4 @@
-﻿namespace ConsulService
+﻿namespace Frozenskys.AspNetCore.Consul
 {
     public interface IConsulService
     {

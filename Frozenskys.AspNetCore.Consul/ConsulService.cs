@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using System;
 using System.Linq;
 
-namespace ConsulService
+namespace Frozenskys.AspNetCore.Consul
 {
     public class ConsulService : IConsulService, IDisposable
     {
