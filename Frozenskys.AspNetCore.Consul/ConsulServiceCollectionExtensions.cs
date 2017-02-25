@@ -1,4 +1,5 @@
-﻿using Frozenskys.AspNetCore.Consul;
+﻿using Consul;
+using Frozenskys.AspNetCore.Consul;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -6,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddConsul(this IServiceCollection services)
         {
-            services.AddTransient<ConsulService, ConsulService>();
+            services.AddSingleton<ConsulClient, ConsulClient>();
             services.AddSingleton<IConsulService, ConsulService>();
         }
     }
