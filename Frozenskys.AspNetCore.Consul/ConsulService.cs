@@ -9,18 +9,18 @@ namespace Frozenskys.AspNetCore.Consul
 {
     public class ConsulService : IConsulService, IDisposable
     {
-        private ConsulClient _client;
-        private IApplicationLifetime _applicationLifetime;
         private string _svcId;
         private int _port;
+        private ConsulClient _client;
         private AgentServiceRegistration _serviceRegistration;
+        private IApplicationLifetime _applicationLifetime;
 
-        public ConsulService(IServer server, IApplicationLifetime applicationLifetime)
+        public ConsulService(IServer server, IApplicationLifetime applicationLifetime, ConsulClient client)
         {
             var AddressFeature = server.Features.Get<IServerAddressesFeature>();
-            _applicationLifetime = applicationLifetime;
             _port = new Uri(AddressFeature.Addresses.First()).Port;
-            _client = new ConsulClient();
+            _applicationLifetime = applicationLifetime;
+            _client = client;
         }
 
         public void RegisterService(string serviceName = "")
@@ -29,6 +29,11 @@ namespace Frozenskys.AspNetCore.Consul
             _serviceRegistration = new AgentServiceRegistration() { Name = _svcId, ID = _svcId, Port = _port };
             _applicationLifetime.ApplicationStarted.Register(RegisterWithConsul);
             _applicationLifetime.ApplicationStopping.Register(DeRegisterWithConsul);
+        }
+
+        public void GetServiceEndpoint(string serviceName)
+        {
+            var serviceList = _client.Catalog.Service(serviceName).GetAwaiter().GetResult();
         }
 
         private void RegisterWithConsul()
@@ -44,6 +49,11 @@ namespace Frozenskys.AspNetCore.Consul
         public void Dispose()
         {
             _client.Dispose();
+        }
+
+        public QueryResult GetServiceEndpoints(string serviceName)
+        {
+            return _client.Catalog.Service("consul").GetAwaiter().GetResult();
         }
     }
 }
