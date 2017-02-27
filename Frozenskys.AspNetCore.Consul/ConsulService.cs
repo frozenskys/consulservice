@@ -51,9 +51,9 @@ namespace Frozenskys.AspNetCore.Consul
             _client.Dispose();
         }
 
-        public QueryResult GetServiceEndpoints(string serviceName)
+        public CatalogService[] GetServiceEndpoints(string serviceName)
         {
-            return _client.Catalog.Service("consul").GetAwaiter().GetResult();
+            return _client.Catalog.Service(serviceName).GetAwaiter().GetResult().Response;
         }
     }
 }
