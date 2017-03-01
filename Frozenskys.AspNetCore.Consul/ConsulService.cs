@@ -23,10 +23,18 @@ namespace Frozenskys.AspNetCore.Consul
             _client = client;
         }
 
-        public void RegisterService(string serviceName = "")
+        public void RegisterService(string serviceName)
         {
             _svcId = serviceName;
             _serviceRegistration = new AgentServiceRegistration() { Name = _svcId, ID = _svcId, Port = _port };
+            _applicationLifetime.ApplicationStarted.Register(RegisterWithConsul);
+            _applicationLifetime.ApplicationStopping.Register(DeRegisterWithConsul);
+        }
+
+        public void RegisterService(string serviceName, string[] tags)
+        {
+            _svcId = serviceName;
+            _serviceRegistration = new AgentServiceRegistration() { Name = _svcId, ID = _svcId, Port = _port, Tags = tags };
             _applicationLifetime.ApplicationStarted.Register(RegisterWithConsul);
             _applicationLifetime.ApplicationStopping.Register(DeRegisterWithConsul);
         }
