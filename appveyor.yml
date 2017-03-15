@@ -3,7 +3,7 @@ init:
   - git config --global core.autocrlf true
 
 image: 
-  - Visual Studio 2017 RC
+  - Visual Studio 2017
   
 # Build script
 build_script:
